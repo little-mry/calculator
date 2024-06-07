@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miniräknaren</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjs@13.0.0/lib/browser/math.min.js"></script>    
+    <script type="module" src="js/index.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="calculator">
+            <div class="result-window">
+                <p class="output"></p>
+                <p class="result"></p>
+            </div>
+            <div class="button-con">
+                <button class="operator" id="sq-root">√</button>
+                <button class="operator" id="squared">^2</button>
+                <button class="operator" class="mul">*</button>
+                <button class="operator" id="divide">/</button>
+                <button class="digit">7</button>
+                <button class="digit">8</button>
+                <button class="digit">9</button>
+                <button class="operator" class="add">+</button>
+                <button class="digit">4</button>
+                <button class="digit">5</button>
+                <button class="digit">6</button>
+                <button class="operator" class="sub">-</button>
+                <button class="digit">1</button>
+                <button class="digit">2</button>
+                <button class="digit">3</button>
+                <button class="clear" id="clear">C</button>
+                <button class="digit" id="digit-0">0</button>
+                <button class="operator" id="sum">=</button>
+            </div>
+        </div>
+        <div class="aside">
+            <h2>Historik</h2>
+            <ul id="history-list"></ul>
+        </div>
+       
+    </div>
+
+    
+</body>
+</html>
