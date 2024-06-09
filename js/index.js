@@ -8,6 +8,8 @@ const operators = Array.from(document.querySelectorAll(".operator"));
 
 function calculator() {
   output.innerText = "";
+  answer.innerText = "";
+
   keyInput();
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -15,27 +17,26 @@ function calculator() {
         output.innerText = "";
         answer.innerText = "";
       } else if (button.id === "squared") {
-        let square = output.innerText
-        let result = math.square(square);
+            let square = output.innerText
+            let result = math.square(square);
             output.innerText += button.innerText
             answer.innerText = result
             sendHistory();
-          } else if (button.id === "sq-root") {
+        } else if (button.id === "sq-root") {
             let x = output.innerText
             let result = Math.sqrt(x);
             output.innerText = button.innerText + output.innerText;
             answer.innerText = result;
-            sendHistory();
-          } else if (button.id === "sum") {
-            getSum(output.innerText)
-            sendHistory();
+            sendHistory();  
+        } else if (button.id === "sum") {
+            getSum(output.innerText);
             output.innerText = "";
-          } else {
+        } else {
             output.innerText += button.innerText + " ";
-            getSum(output.innerText)
-          }
-          disableOperators();
-          storeLocally();
+            getSum(output.innerText);
+            sendHistory();
+        }
+        disableOperators();
       });
     }); 
 }
@@ -57,14 +58,11 @@ function keyInput() {
       sendHistory();
     } else if (event.key === "Enter" || event.key === "=") {
       getSum(output.innerText)
-      sendHistory();
       output.innerText = "";
-    } else if (event.key === 0 || 1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9 ||
-    "+"|| "-" || "/" || "*") {
+    } else if (!isNaN(event.key) || "+-*/".includes(event.key)) {
       output.innerText += event.key;
-    } else {
-      output.innerText += ""
-    };
+      getSum(output.innerText)
+    } 
   });
 }
 
@@ -73,10 +71,8 @@ function getSum() {
     const arith = math.compile(output.innerText)
     const result = arith.evaluate()
     answer.innerText = result;
-    storeLocally();
   } catch {
-    answer.innerText = "";
-    storeLocally();
+    answer.innerText += "";
   }
 }
 
@@ -126,6 +122,11 @@ function storeLocally() {
   localStorage.setItem('storedArithmetic', output.innerText);
   localStorage.setItem('storedSum', answer.innerText);  
   localStorage.setItem('storedHistory', historyList.innerHTML)
+  
+  console.log('Storing:', output.innerText, answer.innerText);
+  localStorage.setItem('storedArithmetic', output.innerText);
+  localStorage.setItem('storedSum', answer.innerText);  
+  localStorage.setItem('storedHistory', historyList.innerHTML);
 }
 
 function getStorage() {
@@ -136,13 +137,13 @@ function getStorage() {
   if (storedArithmetic != null) {
     output.innerText = storedArithmetic
   } else {
-    output.innerText = ""
+    output.innerText = "";
   }
 
   if (storedSum != null) {
     answer.innerText = storedSum
   } else {
-    answer.innerText = ""
+    answer.innerText = "";
   }
   
   if (storedHistory != null) {
